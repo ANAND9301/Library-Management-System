@@ -5,6 +5,33 @@ from pathlib import Path
 from datetime import datetime
 
 class Library:
+    database = "library.json"
+
+    data = {"books" : [],
+            "members": []
+            }
+
+    #load Existing data to json 
+
+    if Path(database).exists() :
+        with open(database,"r") as fs :
+            content = fs.read()
+            if content :
+                data = json.loads(content)
+    else :
+
+        with open(database,"w") as fs :
+            json.dump(data,fs,indent=4)
+
+
+    @classmethod
+    def save_data(cls):
+        with open(cls.database,"w") as f:
+            json.dump(cls.data,f,indent = 4 , default = str)
+
+    
+
+
     def gen_id(Prefix="B"):
         random_id = " "
         for i in range(5):
@@ -30,7 +57,35 @@ class Library:
             "added_on" : datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
-        print(book)
+        Library.data['books'].append(book)
+        Library.save_data()
+
+
+    def list_books(self):
+        if not Library.data['books']:
+            print("NO Books available")
+
+        for b in Library.data['books']:
+            print(f"{b['id'][:12]:20}{b['title'][:24]:25} {b['author'][:19]:20}{b['total_copies']}/{b['available_copies']}")
+
+
+    def add_member(self):
+        name = input("Enter your name:  ")
+        email = input("Enter your email_id:   ")
+
+        member = {
+            "id" : Library.gen_id("M"),
+            "name" : name,
+            "email" : email,
+            "borrowed" : []
+
+
+        }
+
+        Library.data['members'].append(member)
+        print("Member added successfully!!!")
+
+
 
 hello = Library()
 
@@ -53,3 +108,12 @@ choice = input("What you Want to DO :  ")
 
 if choice == "1":
     hello.add_book()
+
+if choice == "2":
+    hello.list_books()
+
+if choice == "3":
+    hello.add_member()
+
+if choice == "4":
+    hello.list_members()

@@ -1,0 +1,13 @@
+{
+    "books": [
+        {
+            "id": "B- ZXLE1",
+            "title": "harry potter",
+            "author": "anand",
+            "total_copies": 20,
+            "available_copies": 20,
+            "added_on": "2026-09-15 01:39:47"
+        }
+    ],
+    "members": []
+}
