@@ -7,7 +7,28 @@
             "total_copies": 20,
             "available_copies": 20,
             "added_on": "2026-09-15 01:39:47"
+        },
+        {
+            "id": "B- AM2HP",
+            "title": "GOT",
+            "author": "aman",
+            "total_copies": 10,
+            "available_copies": 10,
+            "added_on": "2026-09-15 15:19:47"
         }
     ],
-    "members": []
+    "members": [
+        {
+            "id": "M- R1FTM",
+            "name": "akki singh",
+            "email": "xyz@gmail.com ",
+            "borrowed": []
+        },
+        {
+            "id": "M- N6Z6T",
+            "name": "prashant jain",
+            "email": "yyyy@mail.crp",
+            "borrowed": []
+        }
+    ]
 }

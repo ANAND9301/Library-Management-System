@@ -7,9 +7,7 @@ from datetime import datetime
 class Library:
     database = "library.json"
 
-    data = {"books" : [],
-            "members": []
-            }
+    data = {"books" :[],"members" :[]}
 
     #load Existing data to json 
 
@@ -78,12 +76,28 @@ class Library:
             "name" : name,
             "email" : email,
             "borrowed" : []
-
-
         }
 
         Library.data['members'].append(member)
+        Library.save_data()
         print("Member added successfully!!!")
+
+    def list_members(self):
+        if not Library.data['members']:
+            print("NO members available")
+        
+        for m in Library.data['members']:
+            print(f"{m['id']:20}{m['name'][:24]:25} {m['email'][:29]:30}")
+            print(f"Borrowerd books :: {m['borrowed']}")
+
+    def borrow_book(self):
+        member_id = input("Enter the member ID : ").strip()
+        members = [m for m in Library.data['members'] if m['id'] == member_id]
+        if not members:
+            print("No Such ID exists! ")
+
+            return
+        member = members[0]
 
 
 
@@ -117,3 +131,6 @@ if choice == "3":
 
 if choice == "4":
     hello.list_members()
+
+if choice == "5":
+    hello.borrow_book()
