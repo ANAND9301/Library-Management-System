@@ -13,7 +13,7 @@
             "title": "GOT",
             "author": "aman",
             "total_copies": 10,
-            "available_copies": 10,
+            "available_copies": 9,
             "added_on": "2026-09-15 15:19:47"
         }
     ],
@@ -22,7 +22,13 @@
             "id": "M- R1FTM",
             "name": "akki singh",
             "email": "xyz@gmail.com ",
-            "borrowed": []
+            "borrowed": [
+                {
+                    "book_id": "B- AM2HP",
+                    "title": "GOT",
+                    "borrow_on": "2026-09-16 16:18:58"
+                }
+            ]
         },
         {
             "id": "M- N6Z6T",

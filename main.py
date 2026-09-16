@@ -99,38 +99,97 @@ class Library:
             return
         member = members[0]
 
+        book_id = input("enter the book id :  ")
+        books = [b for b in Library.data['books'] if b['id'] == book_id]
+        if not books:
+            print("NO such book")
+        book = books[0]
+
+        if book['available_copies'] <= 0:
+            print("Not available")
+            return
+
+        borrow_entry = {
+            "book_id" : book['id'],
+            "title" : book['title'],
+            "borrow_on" :  datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+
+        member['borrowed'].append(borrow_entry)
+        book['available_copies'] -=1
+        Library.save_data()
+
+    def return_book(self):
+        member_id = input("Enter the member ID : ").strip()
+        members = [m for m in Library.data['members'] if m['id'] == member_id]
+        if not members:
+            print("No Such ID exists! ")
+            return
+        member = members[0]
+
+        if not member['borrowed']:
+            print("No book borrowed")
+            return
+
+        print("Borrowed books ::  ")
+        for i, b in enumerate(member['borrowed'], start = 1):
+            print(f"{i}.{b['title']}({b['book_id']})") 
+
+        try:
+            choice = int(input("Enter no. to return::  "))
+            selected = member['borrowed'].pop(choice-1)
+        except Exception as err:
+            print("an error occured",err)
+
+        books = [bk for bk in Library.data['books'] if bk['id'] == selected['book_id'] ]
+        if books:
+            books [0]['available_copies'] +=1
+
+               
+
+
+
+
 
 
 hello = Library()
 
+while True:
+
 #Functionalities 
-print("="*50)
-print("Library Management System")
-print("="*50)
+    print("="*50)
+    print("Library Management System")
+    print("="*50)
 
-print("1. Add book")
-print("2. List book")
-print("3. To add Member")
-print("4. List members")
-print("5. Borrow book")
-print("6. Return book")
-print("0. Exit the portal")
+    print("1. Add book")
+    print("2. List book")
+    print("3. To add Member")
+    print("4. List members")
+    print("5. Borrow book")
+    print("6. Return book")
+    print("0. Exit the portal")
 
-print("-"*50)
+    print("-"*50)
 
-choice = input("What you Want to DO :  ")
+    choice = input("What you Want to DO :  ")
 
-if choice == "1":
-    hello.add_book()
+    if choice == "1":
+        hello.add_book()
 
-if choice == "2":
-    hello.list_books()
+    if choice == "2":
+        hello.list_books()
 
-if choice == "3":
-    hello.add_member()
+    if choice == "3":
+        hello.add_member()
 
-if choice == "4":
-    hello.list_members()
+    if choice == "4":
+        hello.list_members()
 
-if choice == "5":
-    hello.borrow_book()
+    if choice == "5":
+        hello.borrow_book()
+
+    if choice == "6":
+        hello.return_book()
+
+    if choice == "0":
+        exit(0)
